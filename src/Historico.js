@@ -1,22 +1,24 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { Context } from "./Context";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
-export default function Historico(props) {
+export default function Historico() {
+  const { userinfo } = useContext(Context);
   const percentage = 66;
 
   return (
     <>
       <Header>
-        <p>TrackIt</p>
-        <img
-          src="http://cbissn.ibict.br/images/phocagallery/galeria2/thumbs/phoca_thumb_l_image03_grd.png"
-          alt="pfp"
-        ></img>
+        <h1>TrackIt</h1>
+        <img src={userinfo.image} alt="pfp"></img>
       </Header>
-      <Main></Main>
+      <Main>
+        <h2>Histórico</h2>
+        <p>Em breve você poderá ver o histórico dos seus hábitos aqui!</p>
+      </Main>
       <Footer>
         <Link to="/habitos">Hábitos</Link>
         <div>
@@ -50,7 +52,7 @@ const Header = styled.header`
   padding: 0 18px;
   background: #126ba5;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
-  p {
+  h1 {
     font-family: "Playball", cursive;
     font-size: 38.982px;
     line-height: 49px;
@@ -67,12 +69,18 @@ const Main = styled.main`
   display: flex;
   flex-direction: column;
   height: 100vh;
-  padding: 70px 0;
-  background: #e5e5e5;
+  padding: 98px 15px;
+  background: #F2F2F2;
   h2 {
     font-size: 22.976px;
     line-height: 29px;
     color: #126ba5;
+    margin-bottom: 17px;
+  }
+  p {
+    font-size: 17.976px;
+    line-height: 22px;
+    color: #666666;
   }
 `;
 

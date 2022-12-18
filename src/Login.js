@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import { Context } from "./Context";
 import logo from "./assets/Logo1.png";
 
 export default function Login() {
+  const { setuserinfo } = useContext(Context);
   const navigate = useNavigate();
 
   const [email, setemail] = React.useState("");
@@ -22,7 +24,9 @@ export default function Login() {
         password: password,
       }
     );
-    request.then(() => {
+    request.then((resposta) => {
+      setuserinfo(resposta.data);
+      console.log(resposta.data);
       navigate(`/hoje`);
     });
     request.catch(() => {

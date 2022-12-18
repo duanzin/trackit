@@ -1,20 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
+import { Context } from "./Context";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
-export default function Hoje(props) {
+export default function Hoje() {
+  const { userinfo } = useContext(Context);
   const percentage = 66;
 
   return (
     <>
       <Header>
-        <p>TrackIt</p>
-        <img
-          src="http://cbissn.ibict.br/images/phocagallery/galeria2/thumbs/phoca_thumb_l_image03_grd.png"
-          alt="pfp"
-        ></img>
+        <h1>TrackIt</h1>
+        <img src={userinfo.image} alt="pfp"></img>
       </Header>
       <Main></Main>
       <Footer>
@@ -50,7 +49,7 @@ const Header = styled.header`
   padding: 0 18px;
   background: #126ba5;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
-  p {
+  h1 {
     font-family: "Playball", cursive;
     font-size: 38.982px;
     line-height: 49px;
@@ -67,8 +66,8 @@ const Main = styled.main`
   display: flex;
   flex-direction: column;
   height: 100vh;
-  padding: 70px 0;
-  background: #e5e5e5;
+  padding: 98px 15px;
+  background: #f2f2f2;
   h2 {
     font-size: 22.976px;
     line-height: 29px;
