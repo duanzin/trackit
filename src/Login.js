@@ -1,16 +1,65 @@
 import React from "react";
 import styled from "styled-components";
+import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "./assets/Logo1.png";
 
 export default function Login() {
+  const navigate = useNavigate();
+
+  const [email, setemail] = React.useState("");
+  const [password, setpassword] = React.useState("");
+
+  const [disable, setdisable] = React.useState(false);
+
+  function logar(event) {
+    event.preventDefault();
+    setdisable(true);
+    const request = axios.post(
+      "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login",
+      {
+        email: email,
+        password: password,
+      }
+    );
+    request.then(() => {
+      navigate(`/hoje`);
+    });
+    request.catch(() => {
+      alert("Falha ao fazer login, tente novamente");
+      setdisable(false);
+    });
+  }
+
   return (
     <Container>
       <img src={logo} alt="logo"></img>
-      <form>
-        <input id="email" type="text" placeholder="email" required></input>
-        <input id="senha" type="text" placeholder="senha" required></input>
-        <button>Entrar</button>
+      <form onSubmit={logar}>
+        <input
+          disabled={disable}
+          id="email"
+          type="email"
+          value={email}
+          onChange={(e) => setemail(e.target.value)}
+          placeholder="email"
+          required
+        ></input>
+        <input
+          disabled={disable}
+          id="senha"
+          type="password"
+          autoComplete="off"
+          value={password}
+          onChange={(e) => setpassword(e.target.value)}
+          placeholder="senha"
+          required
+        ></input>
+        <button
+          type="submit"
+          disabled={disable}
+        >
+          Entrar
+        </button>
       </form>
       <Link to="/cadastro">Não tem uma conta? Cadastre-se!</Link>
     </Container>
@@ -44,6 +93,10 @@ const Container = styled.div`
         font-size: 19.976px;
         line-height: 25px;
         color: #dbdbdb;
+      }
+      :disabled {
+        background: #f2f2f2;
+        color: #afafaf;
       }
     }
     button {

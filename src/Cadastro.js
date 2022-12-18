@@ -1,24 +1,89 @@
 import React from "react";
 import styled from "styled-components";
+import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "./assets/Logo1.png";
 
 export default function Cadastro() {
+  const navigate = useNavigate();
+
+  const [email, setemail] = React.useState("");
+  const [password, setpassword] = React.useState("");
+  const [name, setname] = React.useState("");
+  const [image, setimage] = React.useState("");
+
+  const [disable, setdisable] = React.useState(false);
+
+  function cadastrar(event) {
+    event.preventDefault();
+    setdisable(true);
+    const request = axios.post(
+      "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up",
+      {
+        email: email,
+        name: name,
+        image: image,
+        password: password,
+      }
+    );
+    request.then(() => {
+      navigate(`/`);
+    });
+    request.catch(() => {
+      alert("Falha ao cadastrar, tente novamente");
+      setdisable(false);
+    });
+  }
+
   return (
     <Container>
       <img src={logo} alt="logo"></img>
-      <form>
-        <input id="email" type="text" placeholder="email" required></input>
-        <input id="senha" type="text" placeholder="senha" required></input>
-        <input id="nome" type="text" placeholder="nome" required></input>
-        <input id="foto" type="text" placeholder="foto" required></input>
-        <button>Entrar</button>
+      <form onSubmit={cadastrar}>
+        <input
+          disabled={disable}
+          id="email"
+          type="email"
+          value={email}
+          onChange={(e) => setemail(e.target.value)}
+          placeholder="email"
+          required
+        ></input>
+        <input
+          disabled={disable}
+          id="senha"
+          type="password"
+          autoComplete="off"
+          value={password}
+          onChange={(e) => setpassword(e.target.value)}
+          placeholder="senha"
+          required
+        ></input>
+        <input
+          disabled={disable}
+          id="nome"
+          type="text"
+          value={name}
+          onChange={(e) => setname(e.target.value)}
+          placeholder="nome"
+          required
+        ></input>
+        <input
+          disabled={disable}
+          id="foto"
+          type="text"
+          value={image}
+          onChange={(e) => setimage(e.target.value)}
+          placeholder="foto"
+          required
+        ></input>
+        <button type="submit" disabled={disable}>
+          Cadastrar
+        </button>
       </form>
       <Link to="/">Já tem uma conta? Faça login!</Link>
     </Container>
   );
 }
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -46,6 +111,10 @@ const Container = styled.div`
         font-size: 19.976px;
         line-height: 25px;
         color: #dbdbdb;
+      }
+      :disabled {
+        background: #f2f2f2;
+        color: #afafaf;
       }
     }
     button {
