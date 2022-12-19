@@ -17,6 +17,7 @@ export default function Habitos() {
 
   function Novohabito() {
     const [nomehabito, setnomehabito] = React.useState("");
+    const [days, setdays] = React.useState([]);
 
     return (
       <HabitoVazio>
@@ -27,9 +28,23 @@ export default function Habitos() {
           onChange={(e) => setnomehabito(e.target.value)}
           placeholder="nome do hábito"
         ></input>
-        <div></div>
         <div>
-          <button>Cancelar</button>
+          <button>D</button>
+          <button>S</button>
+          <button>T</button>
+          <button>Q</button>
+          <button>Q</button>
+          <button>S</button>
+          <button>S</button>
+        </div>
+        <div>
+          <button
+            onClick={() => {
+              setcriar(false);
+            }}
+          >
+            Cancelar
+          </button>
           <button>Salvar</button>
         </div>
       </HabitoVazio>
@@ -45,13 +60,13 @@ export default function Habitos() {
       <Main>
         <div>
           <h2>Meus hábitos</h2>
-          <button
+          <Criarhabito
             onClick={() => {
               setcriar(true);
             }}
           >
             +
-          </button>
+          </Criarhabito>
         </div>
         {criar ? <Novohabito /> : <></>}
         <p>
@@ -128,20 +143,21 @@ const Main = styled.main`
       line-height: 29px;
       color: #126ba5;
     }
-    button {
-      width: 40px;
-      height: 35px;
-      background: #52b6ff;
-      font-size: 26.976px;
-      line-height: 34px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #ffffff;
-      border: none;
-      border-radius: 4.63636px;
-    }
   }
+`;
+
+const Criarhabito = styled.button`
+  width: 40px;
+  height: 35px;
+  background: #52b6ff;
+  font-size: 26.976px;
+  line-height: 34px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #ffffff;
+  border: none;
+  border-radius: 4.63636px;
 `;
 
 const Footer = styled.footer`
@@ -178,7 +194,9 @@ const HabitoVazio = styled.form`
   width: 340px;
   height: 180px;
   padding: 18px;
+  row-gap: 10px;
   display: flex;
+  flex-wrap: wrap;
   flex-direction: column;
   background: #ffffff;
   border-radius: 5px;
@@ -195,23 +213,38 @@ const HabitoVazio = styled.form`
       color: #dbdbdb;
     }
   }
-  div:first-child {
+  div {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
+    justify-content: flex-start;
     column-gap: 4px;
+    button {
+      width: 30px;
+      height: 30px;
+      background: #ffffff;
+      font-size: 19.976px;
+      line-height: 25px;
+      color: #dbdbdb;
+      border: 1px solid #d5d5d5;
+      border-radius: 5px;
+    }
   }
   div:last-child {
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     justify-content: flex-end;
     column-gap: 30px;
+    margin-top: 14px;
     button {
       font-size: 15.976px;
       line-height: 20px;
       text-align: center;
     }
     button:first-child {
+      width: 70px;
+      height: 35px;
       border: none;
       background: #ffffff;
       color: #52b6ff;
