@@ -18,6 +18,13 @@ export default function Habitos() {
   function Novohabito() {
     const [nomehabito, setnomehabito] = React.useState("");
     const [days, setdays] = React.useState([]);
+    const [clicado1, setclicado1] = React.useState(false);
+    const [clicado2, setclicado2] = React.useState(false);
+    const [clicado3, setclicado3] = React.useState(false);
+    const [clicado4, setclicado4] = React.useState(false);
+    const [clicado5, setclicado5] = React.useState(false);
+    const [clicado6, setclicado6] = React.useState(false);
+    const [clicado7, setclicado7] = React.useState(false);
 
     return (
       <HabitoVazio>
@@ -29,13 +36,84 @@ export default function Habitos() {
           placeholder="nome do hábito"
         ></input>
         <div>
-          <button>D</button>
-          <button>S</button>
-          <button>T</button>
-          <button>Q</button>
-          <button>Q</button>
-          <button>S</button>
-          <button>S</button>
+          <Dia
+
+            clicado={clicado1}
+            onClick={(event) => {
+              event.preventDefault();
+              setdays((current) => [...current, 1]);
+              setclicado1(clicado1 => !clicado1);
+              console.log(days);
+            }}
+          >
+            D
+          </Dia>
+          <Dia
+            clicado={clicado2}
+            onClick={(event) => {
+              event.preventDefault();
+              setdays((current) => [...current, 2]);
+              setclicado2(clicado2 => !clicado2);
+              console.log(days);
+            }}
+          >
+            S
+          </Dia>
+          <Dia
+            clicado={clicado3}
+            onClick={(event) => {
+              event.preventDefault();
+              setdays((current) => [...current, 3]);
+              setclicado3(clicado3 => !clicado3);
+              console.log(days);
+            }}
+          >
+            T
+          </Dia>
+          <Dia
+            clicado={clicado4}
+            onClick={(event) => {
+              event.preventDefault();
+              setdays((current) => [...current, 4]);
+              setclicado4(clicado4 => !clicado4);
+              console.log(days);
+            }}
+          >
+            Q
+          </Dia>
+          <Dia
+            clicado={clicado5}
+            onClick={(event) => {
+              event.preventDefault();
+              setdays((current) => [...current, 5]);
+              setclicado5(clicado5 => !clicado5);
+              console.log(days);
+            }}
+          >
+            Q
+          </Dia>
+          <Dia
+            clicado={clicado6}
+            onClick={(event) => {
+              event.preventDefault();
+              setdays((current) => [...current, 6]);
+              setclicado6(clicado6 => !clicado6);
+              console.log(days);
+            }}
+          >
+            S
+          </Dia>
+          <Dia
+            clicado={clicado7}
+            onClick={(event) => {
+              event.preventDefault();
+              setdays((current) => [...current, 7]);
+              setclicado7(clicado7 => !clicado7);
+              console.log(days);
+            }}
+          >
+            S
+          </Dia>
         </div>
         <div>
           <button
@@ -219,16 +297,6 @@ const HabitoVazio = styled.form`
     flex-wrap: wrap;
     justify-content: flex-start;
     column-gap: 4px;
-    button {
-      width: 30px;
-      height: 30px;
-      background: #ffffff;
-      font-size: 19.976px;
-      line-height: 25px;
-      color: #dbdbdb;
-      border: 1px solid #d5d5d5;
-      border-radius: 5px;
-    }
   }
   div:last-child {
     display: flex;
@@ -258,4 +326,15 @@ const HabitoVazio = styled.form`
       border-radius: 4.63636px;
     }
   }
+`;
+
+const Dia = styled.button`
+  width: 30px;
+  height: 30px;
+  background: ${(props) => (props.clicado ? "#CFCFCF" : "#ffffff")};
+  font-size: 19.976px;
+  line-height: 25px;
+  color: ${(props) => (props.clicado ? "#FFFFFF" : "#dbdbdb")};
+  border: 1px solid ${(props) => (props.clicado ? "#CFCFCF" : "#d5d5d5")};
+  border-radius: 5px;
 `;
