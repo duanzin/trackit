@@ -7,12 +7,34 @@ import "react-circular-progressbar/dist/styles.css";
 
 export default function Habitos() {
   const { userinfo } = useContext(Context);
+  const [criar, setcriar] = React.useState(false);
   const config = {
     headers: {
       Authorization: userinfo.token,
     },
   };
   const percentage = 66;
+
+  function Novohabito() {
+    const [nomehabito, setnomehabito] = React.useState("");
+
+    return (
+      <HabitoVazio>
+        <input
+          id="nomehabito"
+          type="text"
+          value={nomehabito}
+          onChange={(e) => setnomehabito(e.target.value)}
+          placeholder="nome do hábito"
+        ></input>
+        <div></div>
+        <div>
+          <button>Cancelar</button>
+          <button>Salvar</button>
+        </div>
+      </HabitoVazio>
+    );
+  }
 
   return (
     <>
@@ -23,8 +45,15 @@ export default function Habitos() {
       <Main>
         <div>
           <h2>Meus hábitos</h2>
-          <button>+</button>
+          <button
+            onClick={() => {
+              setcriar(true);
+            }}
+          >
+            +
+          </button>
         </div>
+        {criar ? <Novohabito /> : <></>}
         <p>
           Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para
           começar a trackear!
@@ -142,5 +171,58 @@ const Footer = styled.footer`
     margin-bottom: 40px;
     padding: 6px;
     border-radius: 50px;
+  }
+`;
+
+const HabitoVazio = styled.form`
+  width: 340px;
+  height: 180px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border-radius: 5px;
+  input {
+    width: 303px;
+    height: 45px;
+    padding-left: 11px;
+    background: #ffffff;
+    border: 1px solid #d5d5d5;
+    border-radius: 5px;
+    ::placeholder {
+      font-size: 19.976px;
+      line-height: 25px;
+      color: #dbdbdb;
+    }
+  }
+  div:first-child {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    column-gap: 4px;
+  }
+  div:last-child {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    column-gap: 30px;
+    button {
+      font-size: 15.976px;
+      line-height: 20px;
+      text-align: center;
+    }
+    button:first-child {
+      border: none;
+      background: #ffffff;
+      color: #52b6ff;
+    }
+    button:last-child {
+      width: 84px;
+      height: 35px;
+      background: #52b6ff;
+      color: #ffffff;
+      border: none;
+      border-radius: 4.63636px;
+    }
   }
 `;
