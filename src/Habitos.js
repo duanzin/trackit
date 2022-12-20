@@ -95,9 +95,9 @@ export default function Habitos() {
             onClick={(event) => {
               event.preventDefault();
               if (clicado1 === false) {
-                setdays((current) => [...current, 1]);
+                setdays((current) => [...current, 0]);
               } else {
-                setdays((prev) => prev.filter((id) => id !== 1));
+                setdays((prev) => prev.filter((id) => id !== 0));
               }
               setclicado1((clicado1) => !clicado1);
             }}
@@ -110,9 +110,9 @@ export default function Habitos() {
             onClick={(event) => {
               event.preventDefault();
               if (clicado2 === false) {
-                setdays((current) => [...current, 2]);
+                setdays((current) => [...current, 1]);
               } else {
-                setdays((prev) => prev.filter((id) => id !== 2));
+                setdays((prev) => prev.filter((id) => id !== 1));
               }
               setclicado2((clicado2) => !clicado2);
             }}
@@ -125,9 +125,9 @@ export default function Habitos() {
             onClick={(event) => {
               event.preventDefault();
               if (clicado3 === false) {
-                setdays((current) => [...current, 3]);
+                setdays((current) => [...current, 2]);
               } else {
-                setdays((prev) => prev.filter((id) => id !== 3));
+                setdays((prev) => prev.filter((id) => id !== 2));
               }
               setclicado3((clicado3) => !clicado3);
             }}
@@ -140,9 +140,9 @@ export default function Habitos() {
             onClick={(event) => {
               event.preventDefault();
               if (clicado4 === false) {
-                setdays((current) => [...current, 4]);
+                setdays((current) => [...current, 3]);
               } else {
-                setdays((prev) => prev.filter((id) => id !== 4));
+                setdays((prev) => prev.filter((id) => id !== 3));
               }
               setclicado4((clicado4) => !clicado4);
             }}
@@ -155,9 +155,9 @@ export default function Habitos() {
             onClick={(event) => {
               event.preventDefault();
               if (clicado5 === false) {
-                setdays((current) => [...current, 5]);
+                setdays((current) => [...current, 4]);
               } else {
-                setdays((prev) => prev.filter((id) => id !== 5));
+                setdays((prev) => prev.filter((id) => id !== 4));
               }
               setclicado5((clicado5) => !clicado5);
             }}
@@ -170,9 +170,9 @@ export default function Habitos() {
             onClick={(event) => {
               event.preventDefault();
               if (clicado6 === false) {
-                setdays((current) => [...current, 6]);
+                setdays((current) => [...current, 5]);
               } else {
-                setdays((prev) => prev.filter((id) => id !== 6));
+                setdays((prev) => prev.filter((id) => id !== 5));
               }
               setclicado6((clicado6) => !clicado6);
             }}
@@ -185,9 +185,9 @@ export default function Habitos() {
             onClick={(event) => {
               event.preventDefault();
               if (clicado7 === false) {
-                setdays((current) => [...current, 7]);
+                setdays((current) => [...current, 6]);
               } else {
-                setdays((prev) => prev.filter((id) => id !== 7));
+                setdays((prev) => prev.filter((id) => id !== 6));
               }
               setclicado7((clicado7) => !clicado7);
             }}

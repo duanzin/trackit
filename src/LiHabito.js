@@ -37,25 +37,25 @@ export default function LiHabito(props) {
         ></img>
       </div>
       <div>
-        <Span dias={props.dias} dia={1}>
+        <Span dias={props.dias} dia={0}>
           D
         </Span>
-        <Span dias={props.dias} dia={2}>
+        <Span dias={props.dias} dia={1}>
           S
         </Span>
-        <Span dias={props.dias} dia={3}>
+        <Span dias={props.dias} dia={2}>
           T
+        </Span>
+        <Span dias={props.dias} dia={3}>
+          Q
         </Span>
         <Span dias={props.dias} dia={4}>
           Q
         </Span>
         <Span dias={props.dias} dia={5}>
-          Q
-        </Span>
-        <Span dias={props.dias} dia={6}>
           S
         </Span>
-        <Span dias={props.dias} dia={7}>
+        <Span dias={props.dias} dia={6}>
           S
         </Span>
       </div>

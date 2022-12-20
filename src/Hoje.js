@@ -141,6 +141,11 @@ const Main = styled.main`
     line-height: 22px;
     color: #bababa;
   }
+  ul{
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+  }
 `;
 
 const Footer = styled.footer`
