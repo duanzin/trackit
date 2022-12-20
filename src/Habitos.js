@@ -25,8 +25,8 @@ export default function Habitos() {
     requisicao.then((resposta) => {
       setinfohabito(resposta.data);
     });
-    requisicao.catch((resposta) => {
-      console.log(resposta.data);
+    requisicao.catch(() => {
+      alert("algo deu errado")
     });
   }, []);
 
@@ -58,7 +58,7 @@ export default function Habitos() {
         },
         config
       );
-      request.then((resposta) => {
+      request.then(() => {
         setcriar(false);
       });
       request.catch(() => {
@@ -228,6 +228,7 @@ export default function Habitos() {
                 id={habit.id}
                 titulo={habit.name}
                 dias={habit.days}
+                setinfohabito={setinfohabito}
                 config={config}
               />
             ))}

@@ -8,7 +8,33 @@ export default function LiHabito(props) {
     <Li>
       <div>
         <h3>{props.titulo}</h3>
-        <img src={lixo} alt="deletar"></img>
+        <img
+          src={lixo}
+          alt="deletar"
+          onClick={() => {
+            const confirmBox = window.confirm(
+              "Deseja deletar esse hábito?"
+            );
+            if (confirmBox === true) {
+                const request = axios.delete(
+                    `https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${props.id}`,
+                    props.config
+                  );
+                  request.then(() => {
+                    const requisicao = axios.get(
+                        "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",
+                        props.config
+                      );
+                      requisicao.then((resposta) => {
+                        props.setinfohabito(resposta.data);
+                      });
+                      requisicao.catch(() => {
+                        alert("algo deu errado")
+                      });
+                  });
+            }
+          }}
+        ></img>
       </div>
       <div>
         <Span dias={props.dias} dia={1}>
