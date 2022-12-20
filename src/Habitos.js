@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { Link } from "react-router-dom";
 import { Context } from "./Context";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
@@ -18,6 +19,9 @@ export default function Habitos() {
   function Novohabito() {
     const [nomehabito, setnomehabito] = React.useState("");
     const [days, setdays] = React.useState([]);
+
+    const [disable, setdisable] = React.useState(false);
+
     const [clicado1, setclicado1] = React.useState(false);
     const [clicado2, setclicado2] = React.useState(false);
     const [clicado3, setclicado3] = React.useState(false);
@@ -26,9 +30,32 @@ export default function Habitos() {
     const [clicado6, setclicado6] = React.useState(false);
     const [clicado7, setclicado7] = React.useState(false);
 
+    function enviarhabito(event) {
+      event.preventDefault();
+      console.log(days);
+      setdisable(true);
+
+      const request = axios.post(
+        "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",
+        {
+          name: nomehabito,
+          days: days,
+        },
+        config
+      );
+      request.then((resposta) => {
+        setcriar(false);
+      });
+      request.catch((resposta) => {
+        alert("Falha ao enviar o habito");
+        setdisable(false);
+      });
+    }
+
     return (
-      <HabitoVazio>
+      <HabitoVazio onSubmit={enviarhabito}>
         <input
+          disabled={disable}
           id="nomehabito"
           type="text"
           value={nomehabito}
@@ -37,79 +64,106 @@ export default function Habitos() {
         ></input>
         <div>
           <Dia
-
+            disabled={disable}
             clicado={clicado1}
             onClick={(event) => {
               event.preventDefault();
-              setdays((current) => [...current, 1]);
-              setclicado1(clicado1 => !clicado1);
-              console.log(days);
+              if (clicado1 === false) {
+                setdays((current) => [...current, 1]);
+              } else {
+                setdays((prev) => prev.filter((id) => id !== 1));
+              }
+              setclicado1((clicado1) => !clicado1);
             }}
           >
             D
           </Dia>
           <Dia
+            disabled={disable}
             clicado={clicado2}
             onClick={(event) => {
               event.preventDefault();
-              setdays((current) => [...current, 2]);
-              setclicado2(clicado2 => !clicado2);
-              console.log(days);
+              if (clicado2 === false) {
+                setdays((current) => [...current, 2]);
+              } else {
+                setdays((prev) => prev.filter((id) => id !== 2));
+              }
+              setclicado2((clicado2) => !clicado2);
             }}
           >
             S
           </Dia>
           <Dia
+            disabled={disable}
             clicado={clicado3}
             onClick={(event) => {
               event.preventDefault();
-              setdays((current) => [...current, 3]);
-              setclicado3(clicado3 => !clicado3);
-              console.log(days);
+              if (clicado3 === false) {
+                setdays((current) => [...current, 3]);
+              } else {
+                setdays((prev) => prev.filter((id) => id !== 3));
+              }
+              setclicado3((clicado3) => !clicado3);
             }}
           >
             T
           </Dia>
           <Dia
+            disabled={disable}
             clicado={clicado4}
             onClick={(event) => {
               event.preventDefault();
-              setdays((current) => [...current, 4]);
-              setclicado4(clicado4 => !clicado4);
-              console.log(days);
+              if (clicado4 === false) {
+                setdays((current) => [...current, 4]);
+              } else {
+                setdays((prev) => prev.filter((id) => id !== 4));
+              }
+              setclicado4((clicado4) => !clicado4);
             }}
           >
             Q
           </Dia>
           <Dia
+            disabled={disable}
             clicado={clicado5}
             onClick={(event) => {
               event.preventDefault();
-              setdays((current) => [...current, 5]);
-              setclicado5(clicado5 => !clicado5);
-              console.log(days);
+              if (clicado5 === false) {
+                setdays((current) => [...current, 5]);
+              } else {
+                setdays((prev) => prev.filter((id) => id !== 5));
+              }
+              setclicado5((clicado5) => !clicado5);
             }}
           >
             Q
           </Dia>
           <Dia
+            disabled={disable}
             clicado={clicado6}
             onClick={(event) => {
               event.preventDefault();
-              setdays((current) => [...current, 6]);
-              setclicado6(clicado6 => !clicado6);
-              console.log(days);
+              if (clicado6 === false) {
+                setdays((current) => [...current, 6]);
+              } else {
+                setdays((prev) => prev.filter((id) => id !== 6));
+              }
+              setclicado6((clicado6) => !clicado6);
             }}
           >
             S
           </Dia>
           <Dia
+            disabled={disable}
             clicado={clicado7}
             onClick={(event) => {
               event.preventDefault();
-              setdays((current) => [...current, 7]);
-              setclicado7(clicado7 => !clicado7);
-              console.log(days);
+              if (clicado7 === false) {
+                setdays((current) => [...current, 7]);
+              } else {
+                setdays((prev) => prev.filter((id) => id !== 7));
+              }
+              setclicado7((clicado7) => !clicado7);
             }}
           >
             S
@@ -117,13 +171,16 @@ export default function Habitos() {
         </div>
         <div>
           <button
+            disabled={disable}
             onClick={() => {
               setcriar(false);
             }}
           >
             Cancelar
           </button>
-          <button>Salvar</button>
+          <button type="submit" disabled={disable}>
+            Salvar
+          </button>
         </div>
       </HabitoVazio>
     );

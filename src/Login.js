@@ -26,7 +26,6 @@ export default function Login() {
     );
     request.then((resposta) => {
       setuserinfo(resposta.data);
-      console.log(resposta.data);
       navigate(`/hoje`);
     });
     request.catch(() => {
