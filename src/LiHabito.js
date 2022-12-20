@@ -11,13 +11,27 @@ export default function LiHabito(props) {
         <img src={lixo} alt="deletar"></img>
       </div>
       <div>
-        <div>D</div>
-        <div>S</div>
-        <div>T</div>
-        <div>Q</div>
-        <div>Q</div>
-        <div>S</div>
-        <div>S</div>
+        <Span dias={props.dias} dia={1}>
+          D
+        </Span>
+        <Span dias={props.dias} dia={2}>
+          S
+        </Span>
+        <Span dias={props.dias} dia={3}>
+          T
+        </Span>
+        <Span dias={props.dias} dia={4}>
+          Q
+        </Span>
+        <Span dias={props.dias} dia={5}>
+          Q
+        </Span>
+        <Span dias={props.dias} dia={6}>
+          S
+        </Span>
+        <Span dias={props.dias} dia={7}>
+          S
+        </Span>
       </div>
     </Li>
   );
@@ -26,7 +40,7 @@ export default function LiHabito(props) {
 const Li = styled.li`
   width: 340px;
   height: 91px;
-  padding: 15px 0;
+  padding: 0 15px;
   background: #ffffff;
   border-radius: 5px;
   display: flex;
@@ -49,19 +63,25 @@ const Li = styled.li`
       height: 15px;
     }
   }
-  div :last-child {
+  div:last-child {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     justify-content: flex-start;
     column-gap: 4px;
-    div {
-      all: unset;
-      width: 30px;
-      height: 30px;
-      background: #ffffff;
-      border: 1px solid #d5d5d5;
-      border-radius: 5px;
-      font-size: 19.976px;
-      line-height: 25px;
-      color: #dbdbdb;
-    }
   }
+`;
+
+const Span = styled.span`
+  width: 30px;
+  height: 30px;
+  background: ${(props) =>
+    props.dias.includes(props.dia) ? "#CFCFCF" : "#ffffff"};
+  border: 1px solid
+    ${(props) => (props.dias.includes(props.dia) ? "#CFCFCF" : "#d5d5d5")};
+  border-radius: 5px;
+  font-size: 19.976px;
+  line-height: 25px;
+  text-align: center;
+  color: ${(props) => (props.dias.includes(props.dia) ? "#FFFFFF" : "#dbdbdb")};
 `;
