@@ -11,7 +11,7 @@ export default function Habitos() {
   const [criar, setcriar] = React.useState(false);
   const config = {
     headers: {
-      Authorization: userinfo.token,
+      Authorization: `Bearer ${userinfo.token}`,
     },
   };
   const percentage = 66;
@@ -32,7 +32,6 @@ export default function Habitos() {
 
     function enviarhabito(event) {
       event.preventDefault();
-      console.log(days);
       setdisable(true);
 
       const request = axios.post(
@@ -59,6 +58,7 @@ export default function Habitos() {
           id="nomehabito"
           type="text"
           value={nomehabito}
+          autoComplete="off"
           onChange={(e) => setnomehabito(e.target.value)}
           placeholder="nome do hábito"
         ></input>
