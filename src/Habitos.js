@@ -26,7 +26,7 @@ export default function Habitos() {
       setinfohabito(resposta.data);
     });
     requisicao.catch(() => {
-      alert("algo deu errado")
+      alert("algo deu errado");
     });
   }, []);
 
@@ -60,6 +60,16 @@ export default function Habitos() {
       );
       request.then(() => {
         setcriar(false);
+        const requisicao = axios.get(
+          "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",
+          config
+        );
+        requisicao.then((resposta) => {
+          setinfohabito(resposta.data);
+        });
+        requisicao.catch(() => {
+          alert("algo deu errado");
+        });
       });
       request.catch(() => {
         alert("Falha ao enviar o habito");
@@ -235,9 +245,9 @@ export default function Habitos() {
           </ul>
         ) : (
           <p>
-          Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para
-          começar a trackear!
-        </p>
+            Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para
+            começar a trackear!
+          </p>
         )}
       </Main>
       <Footer>
@@ -293,7 +303,7 @@ const Main = styled.main`
   height: 100vh;
   padding: 98px 15px;
   background: #f2f2f2;
-  ul{
+  ul {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
