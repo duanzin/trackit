@@ -3,17 +3,33 @@ import styled from "styled-components";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { Context } from "./Context";
+import LiHabito from "./LiHabito";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
 export default function Habitos() {
   const { userinfo } = useContext(Context);
+  const [infohabito, setinfohabito] = React.useState(undefined);
   const [criar, setcriar] = React.useState(false);
   const config = {
     headers: {
       Authorization: `Bearer ${userinfo.token}`,
     },
   };
+
+  React.useEffect(() => {
+    const requisicao = axios.get(
+      "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",
+      config
+    );
+    requisicao.then((resposta) => {
+      setinfohabito(resposta.data);
+    });
+    requisicao.catch((resposta) => {
+      console.log(resposta.data);
+    });
+  }, []);
+
   const percentage = 66;
 
   function Novohabito() {
@@ -45,7 +61,7 @@ export default function Habitos() {
       request.then((resposta) => {
         setcriar(false);
       });
-      request.catch((resposta) => {
+      request.catch(() => {
         alert("Falha ao enviar o habito");
         setdisable(false);
       });
@@ -204,10 +220,24 @@ export default function Habitos() {
           </Criarhabito>
         </div>
         {criar ? <Novohabito /> : <></>}
-        <p>
+        {infohabito !== undefined ? (
+          <ul>
+            {infohabito.map((habit) => (
+              <LiHabito
+                key={habit.id}
+                id={habit.id}
+                titulo={habit.name}
+                dias={habit.days}
+                config={config}
+              />
+            ))}
+          </ul>
+        ) : (
+          <p>
           Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para
           começar a trackear!
         </p>
+        )}
       </Main>
       <Footer>
         <Link to="/habitos">Hábitos</Link>
@@ -262,6 +292,12 @@ const Main = styled.main`
   height: 100vh;
   padding: 98px 15px;
   background: #f2f2f2;
+  ul{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    row-gap: 10px;
+  }
   p {
     margin-top: 20px;
     font-size: 17.976px;
