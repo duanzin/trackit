@@ -1,12 +1,46 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
-import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { Link } from "react-router-dom";
 import { Context } from "./Context";
+import LiHoje from "./LiHoje";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
 export default function Hoje() {
   const { userinfo } = useContext(Context);
+
+  const [habitohoje, sethabitohoje] = React.useState(undefined);
+  const weekday = [
+    "Domingo",
+    "Segunda",
+    "Terça",
+    "Quarta",
+    "Quinta",
+    "Sexta",
+    "Sábado",
+  ];
+  const data = new Date();
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${userinfo.token}`,
+    },
+  };
+
+  React.useEffect(() => {
+    const requisicao = axios.get(
+      "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today",
+      config
+    );
+    requisicao.then((resposta) => {
+      sethabitohoje(resposta.data);
+    });
+    requisicao.catch(() => {
+      alert("algo deu errado");
+    });
+  }, []);
+
   const percentage = 66;
 
   return (
@@ -15,7 +49,35 @@ export default function Hoje() {
         <h1>TrackIt</h1>
         <img src={userinfo.image} alt="pfp"></img>
       </Header>
-      <Main></Main>
+      <Main>
+        <div>
+          <h2>
+            {weekday[data.getDay()]}, {data.getDate()}/{data.getMonth()}
+          </h2>
+          <p>Nenhum hábito concluído ainda</p>
+        </div>
+        {habitohoje !== undefined ? (
+          <ul>
+            {habitohoje.map((habito) => (
+              <LiHoje
+                key={habito.id}
+                id={habito.id}
+                titulo={habito.name}
+                feito={habito.done}
+                sequenciaatual={habito.currentSequence}
+                maiorsequencia={habito.highestSequence}
+                sethabitohoje={sethabitohoje}
+                config={config}
+              />
+            ))}
+          </ul>
+        ) : (
+          <p>
+            Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para
+            começar a trackear!
+          </p>
+        )}
+      </Main>
       <Footer>
         <Link to="/habitos">Hábitos</Link>
         <div>
@@ -67,11 +129,17 @@ const Main = styled.main`
   flex-direction: column;
   height: 100vh;
   padding: 98px 15px;
+  row-gap: 28px;
   background: #f2f2f2;
   h2 {
     font-size: 22.976px;
     line-height: 29px;
     color: #126ba5;
+  }
+  p {
+    font-size: 17.976px;
+    line-height: 22px;
+    color: #bababa;
   }
 `;
 
